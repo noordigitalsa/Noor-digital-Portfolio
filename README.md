@@ -1,2 +1,844 @@
 # Noor-digital-Portfolio
-A simple HTML website hosted with GitHub Pages.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noor Digital — Social Media Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Noto+Kufi+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --gold:#C9A84C;
+  --gold2:#E8C96A;
+  --dark:#0A0804;
+  --dark2:#120E08;
+  --card:#161208;
+  --border:rgba(201,168,76,0.18);
+  --text:rgba(248,243,236,0.85);
+  --muted:rgba(248,243,236,0.4);
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--dark);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:999;opacity:0.6;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:60px 24px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-glow{
+  position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.hero-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+.brand-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid var(--border);
+  border-radius:50px;
+  padding:8px 20px;
+  margin-bottom:36px;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);
+  background:rgba(201,168,76,0.06);
+  animation:fadeUp 0.8s ease both;
+}
+.brand-badge::before{content:'◆';font-size:8px;}
+
+.hero-logo{
+  font-family:'Noto Kufi Arabic',sans-serif;
+  font-size:clamp(14px,2vw,18px);
+  color:var(--gold);
+  letter-spacing:4px;
+  margin-bottom:10px;
+  animation:fadeUp 0.9s 0.1s ease both;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,8vw,96px);
+  line-height:1.0;
+  letter-spacing:-2px;
+  margin-bottom:8px;
+  background:linear-gradient(160deg,#F8F3EC 30%,var(--gold) 70%,#F8F3EC 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeUp 1s 0.2s ease both;
+}
+.hero-sub{
+  font-size:clamp(14px,2vw,18px);
+  color:var(--muted);
+  letter-spacing:6px;
+  text-transform:uppercase;
+  margin-bottom:48px;
+  animation:fadeUp 1s 0.3s ease both;
+}
+
+.hero-desc{
+  font-size:15px;
+  color:var(--muted);
+  max-width:440px;
+  line-height:1.9;
+  margin-bottom:52px;
+  animation:fadeUp 1s 0.4s ease both;
+}
+
+.scroll-hint{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  animation:fadeUp 1s 0.6s ease both;
+}
+.scroll-hint::after{
+  content:'';display:block;
+  width:1px;height:50px;
+  background:linear-gradient(var(--gold),transparent);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+/* ── SOCIAL LINKS BAR ── */
+.social-bar{
+  display:flex;gap:0;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:52px;
+  animation:fadeUp 1s 0.5s ease both;
+}
+.social-link{
+  display:flex;align-items:center;gap:8px;
+  padding:13px 22px;
+  color:var(--muted);
+  font-size:12px;font-weight:500;
+  text-decoration:none;
+  border-right:1px solid var(--border);
+  transition:all 0.25s;
+}
+.social-link:last-child{border-right:none;}
+.social-link:hover{background:rgba(201,168,76,0.08);color:var(--gold);}
+.social-link .s-icon{font-size:16px;}
+.social-link .s-handle{font-size:11px;letter-spacing:0.5px;}
+
+/* ── SECTION ── */
+.section{padding:100px 24px;}
+.section-inner{max-width:1100px;margin:0 auto;}
+
+.section-eyebrow{
+  display:flex;align-items:center;gap:16px;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.section-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
+
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4vw,48px);
+  line-height:1.15;
+  margin-bottom:14px;
+}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-body{color:var(--muted);font-size:15px;line-height:1.9;max-width:560px;}
+
+/* ── DIVIDER ── */
+.gold-divider{
+  width:60px;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  margin:40px 0;
+}
+
+/* ── CASE STUDY ── */
+.case-study{margin-bottom:140px;}
+.case-study:last-child{margin-bottom:0;}
+
+.case-header{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:start;gap:24px;
+  margin-bottom:48px;
+}
+@media(max-width:600px){.case-header{grid-template-columns:1fr;}}
+
+.case-number{
+  font-family:'Playfair Display',serif;
+  font-size:80px;line-height:1;
+  color:rgba(201,168,76,0.08);
+  letter-spacing:-4px;
+  font-weight:700;
+}
+.case-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,4vw,40px);
+  margin-bottom:6px;
+}
+.case-handle{color:var(--gold);font-size:13px;margin-bottom:10px;}
+.case-desc{color:var(--muted);font-size:14px;line-height:1.8;max-width:500px;}
+
+.case-tag{
+  display:inline-block;
+  border:1px solid var(--border);
+  border-radius:50px;padding:5px 14px;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);background:rgba(201,168,76,0.06);
+  white-space:nowrap;
+}
+
+/* ── PHONE MOCKUP ── */
+.mockup-row{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:48px;
+  align-items:start;
+}
+@media(max-width:800px){.mockup-row{grid-template-columns:1fr;}}
+
+.phone-wrap{display:flex;justify-content:center;}
+.phone{
+  width:300px;
+  background:#fff;
+  border-radius:40px;
+  box-shadow:
+    0 0 0 8px #111,
+    0 0 0 9px #2a2a2a,
+    0 40px 80px rgba(0,0,0,0.6),
+    0 0 60px rgba(201,168,76,0.08);
+  overflow:hidden;
+  flex-shrink:0;
+}
+.status-bar{
+  background:#fff;padding:12px 20px 6px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;font-weight:700;color:#1a1a1a;
+}
+.ig-nav{
+  padding:3px 14px 8px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid #efefef;
+}
+.ig-username-bar{font-weight:700;font-size:14px;color:#1a1a1a;}
+.ig-nav-icons{display:flex;gap:14px;font-size:17px;color:#1a1a1a;}
+.ig-scroll{height:580px;overflow-y:auto;scrollbar-width:none;}
+.ig-scroll::-webkit-scrollbar{display:none;}
+.ig-profile{padding:12px 14px 10px;}
+.ig-profile-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.avatar-ring{
+  width:72px;height:72px;border-radius:50%;
+  padding:2px;flex-shrink:0;
+}
+.avatar-inner{
+  width:100%;height:100%;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;border:2px solid #fff;
+}
+.ig-stats{display:flex;gap:14px;flex:1;justify-content:space-around;}
+.ig-stat{text-align:center;}
+.ig-stat strong{display:block;font-size:14px;font-weight:700;color:#1a1a1a;}
+.ig-stat span{font-size:10px;color:#666;}
+.ig-name-text{font-weight:700;font-size:12px;color:#1a1a1a;margin-bottom:2px;}
+.ig-bio-text{font-size:11px;color:#1a1a1a;line-height:1.5;margin-bottom:8px;}
+.ig-bio-text .ig-link{color:#00376b;font-size:10px;}
+.ig-btns{display:flex;gap:6px;margin-bottom:12px;}
+.ig-btn{flex:1;padding:6px;border-radius:7px;border:1px solid #dbdbdb;background:#efefef;font-size:12px;font-weight:600;color:#1a1a1a;text-align:center;}
+.ig-btn.prim{background:#0095f6;color:#fff;border-color:#0095f6;}
+.ig-btn.sm{flex:0 0 30px;font-size:14px;}
+.highlights-strip{
+  display:flex;gap:12px;padding:2px 14px 12px;
+  overflow-x:auto;scrollbar-width:none;
+  border-bottom:1px solid #efefef;
+}
+.highlights-strip::-webkit-scrollbar{display:none;}
+.hl-item{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;}
+.hl-ring{width:52px;height:52px;border-radius:50%;padding:2px;display:flex;align-items:center;justify-content:center;}
+.hl-circle{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid #fff;}
+.hl-item span{font-size:9px;color:#1a1a1a;text-align:center;max-width:52px;}
+.grid-tabs{display:flex;border-bottom:1px solid #efefef;}
+.grid-tab{flex:1;text-align:center;padding:8px;font-size:17px;color:#8e8e8e;border-bottom:2px solid transparent;}
+.grid-tab.act{color:#1a1a1a;border-bottom-color:#1a1a1a;}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.ig-post{aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;}
+.ig-post-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;text-align:center;}
+.post-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;transition:opacity 0.2s;padding:8px;
+}
+.ig-post:hover .post-overlay,.ig-post.tapped .post-overlay{opacity:1;}
+.ov-likes{color:#fff;font-size:11px;font-weight:600;margin-bottom:3px;}
+.ov-cap{color:rgba(255,255,255,0.8);font-size:9px;line-height:1.4;text-align:center;}
+.ig-bottom{
+  border-top:1px solid #efefef;
+  display:flex;justify-content:space-around;
+  padding:8px 0 12px;background:#fff;
+  position:sticky;bottom:0;
+}
+.ig-bottom span{font-size:20px;cursor:pointer;}
+
+/* ── RIGHT PANEL ── */
+.case-right{display:flex;flex-direction:column;gap:24px;padding-top:8px;}
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+}
+.panel-title{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.panel-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.post-card{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.post-card:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.post-card .pc-num{font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.post-card .pc-caption{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:5px;}
+.post-card .pc-tags{font-size:11px;color:rgba(201,168,76,0.7);}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.compare-col h5{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.compare-col li{font-size:12px;color:var(--muted);line-height:2;list-style:none;}
+.compare-col.before li::before{content:'✗ ';color:#FF6B6B;}
+.compare-col.after li::before{content:'✓ ';color:#6BCB77;}
+
+/* ── SERVICES ── */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2px;
+  margin-top:48px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+}
+.service-card{
+  background:var(--card);
+  padding:36px 28px;
+  transition:background 0.25s;
+}
+.service-card:hover{background:#1e1810;}
+.service-icon{font-size:28px;margin-bottom:16px;}
+.service-name{font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px;}
+.service-desc{font-size:13px;color:var(--muted);line-height:1.8;}
+
+/* ── FOOTER ── */
+.footer{
+  border-top:1px solid var(--border);
+  padding:60px 24px;
+  text-align:center;
+}
+.footer-logo{
+  font-family:'Noto Kufi Arabic',sans-serif;
+  font-size:14px;letter-spacing:4px;
+  color:var(--gold);margin-bottom:6px;
+}
+.footer-name{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  background:linear-gradient(135deg,#F8F3EC,var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:24px;
+}
+.footer-socials{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+  margin-bottom:32px;
+}
+.footer-social{
+  display:flex;align-items:center;gap:7px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:50px;
+  padding:9px 18px;
+  font-size:12px;color:var(--muted);
+  text-decoration:none;
+  transition:all 0.2s;
+}
+.footer-social:hover{border-color:var(--gold);color:var(--gold);}
+.footer-copy{font-size:11px;color:var(--muted);letter-spacing:1px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-lines"></div>
+
+  <div class="brand-badge">Social Media Portfolio · المملكة العربية السعودية</div>
+  <div class="hero-logo">نور ديجيتال</div>
+  <h1>NOOR<br>DIGITAL</h1>
+  <div class="hero-sub">Social Media · Content · Branding</div>
+
+  <div class="social-bar">
+    <a class="social-link" href="https://instagram.com/noordigitalsa" target="_blank">
+      <span class="s-icon">📸</span>
+      <span class="s-handle">@noordigitalsa</span>
+    </a>
+    <a class="social-link" href="https://tiktok.com/@noordigitalsa" target="_blank">
+      <span class="s-icon">🎵</span>
+      <span class="s-handle">@noordigitalsa</span>
+    </a>
+    <a class="social-link" href="https://x.com/noordigitalsa" target="_blank">
+      <span class="s-icon">𝕏</span>
+      <span class="s-handle">@noordigitalsa</span>
+    </a>
+    <a class="social-link" href="https://youtube.com/@noordigitalsa" target="_blank">
+      <span class="s-icon">▶</span>
+      <span class="s-handle">@noordigitalsa</span>
+    </a>
+  </div>
+
+  <p class="hero-desc">
+    Instagram redesigns for local Madinah restaurants — showing what professional social media management looks like.
+    <br><br>
+    <span style="font-family:'Noto Kufi Arabic',sans-serif;font-size:13px;color:var(--gold);">إعادة تصميم صفحات انستغرام لمطاعم المدينة المنورة</span>
+  </p>
+
+  <div class="scroll-hint">Scroll to see the work</div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CASE STUDIES INTRO
+══════════════════════════════════════════════ -->
+<section class="section" style="padding-bottom:0;">
+  <div class="section-inner">
+    <div class="section-eyebrow">Case Studies</div>
+    <h2 class="section-title">3 Madinah brands.<br><em>Redesigned from scratch.</em></h2>
+    <p class="section-body">These are concept mockups built to show local restaurants what their Instagram page could look like with professional management. Tap the posts to see captions.</p>
+    <div class="gold-divider"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CASE 01 — ZAFARAN
+══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="case-study">
+
+      <div class="case-header">
+        <div>
+          <div class="case-number">01</div>
+          <h3 class="case-name">Zafaran Café</h3>
+          <div class="case-handle">@zafaran.madinah</div>
+          <p class="case-desc">Specialty coffee & saffron drinks on Al-Anbariyah St. Concept: dark espresso tones, gold Arabic branding, premium moody aesthetic to stand out in Madinah's growing café scene.</p>
+        </div>
+        <div class="case-tag">☕ Café & Coffee</div>
+      </div>
+
+      <div class="mockup-row">
+        <!-- PHONE -->
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●● 🔋</span></div>
+            <div class="ig-nav">
+              <span style="font-size:16px;color:#1a1a1a;">←</span>
+              <span class="ig-username-bar">zafaran.madinah</span>
+              <div class="ig-nav-icons"><span>＋</span><span>☰</span></div>
+            </div>
+            <div class="ig-scroll">
+              <div class="ig-profile">
+                <div class="ig-profile-top">
+                  <div class="avatar-ring" style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);">
+                    <div class="avatar-inner" style="background:linear-gradient(135deg,#2C1203,#5C3010);">☕</div>
+                  </div>
+                  <div class="ig-stats">
+                    <div class="ig-stat"><strong>47</strong><span>posts</span></div>
+                    <div class="ig-stat"><strong>2,841</strong><span>followers</span></div>
+                    <div class="ig-stat"><strong>128</strong><span>following</span></div>
+                  </div>
+                </div>
+                <div class="ig-name-text">مقهى زعفران · Zafaran Café</div>
+                <div class="ig-bio-text">☕ Specialty coffee & saffron drinks<br>📍 Al-Anbariyah St · Madinah<br>⏰ Daily 6AM – 12AM<br><span class="ig-link">🔗 Order on WhatsApp</span></div>
+                <div class="ig-btns">
+                  <div class="ig-btn prim">Follow</div>
+                  <div class="ig-btn">Message</div>
+                  <div class="ig-btn sm">▾</div>
+                </div>
+              </div>
+              <div class="highlights-strip">
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#f09433,#bc1888);"><div class="hl-circle" style="background:linear-gradient(135deg,#2C1203,#5C3010);">☕</div></div><span>Menu</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#f09433,#bc1888);"><div class="hl-circle" style="background:linear-gradient(135deg,#3D1E08,#1C0A00);">⭐</div></div><span>Offers</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#f09433,#bc1888);"><div class="hl-circle" style="background:linear-gradient(135deg,#2C1203,#5C3010);">📍</div></div><span>Find Us</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#f09433,#bc1888);"><div class="hl-circle" style="background:linear-gradient(135deg,#1C0A00,#4A2510);">💬</div></div><span>Reviews</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#f09433,#bc1888);"><div class="hl-circle" style="background:linear-gradient(135deg,#3D1E08,#1C0A00);">🕌</div></div><span>Ramadan</span></div>
+              </div>
+              <div class="grid-tabs"><div class="grid-tab act">⊞</div><div class="grid-tab">▶</div><div class="grid-tab">🏷</div></div>
+              <div class="ig-grid">
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(160deg,#1C0A00,#3D1E08);">
+                    <div style="font-size:30px;margin-bottom:5px;">🥛</div>
+                    <div style="color:#E8C96A;font-family:'Playfair Display',serif;font-size:10px;">Saffron Latte</div>
+                    <div style="color:rgba(255,255,255,0.35);font-size:8px;font-family:'Noto Kufi Arabic';">لاتيه الزعفران</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 312 · 💬 18</div><div class="ov-cap">One sip and you understand why saffron is worth more than gold ☕</div></div>
+                </div>
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(135deg,#2C1504,#5C3010);">
+                    <div style="font-size:8px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;margin-bottom:6px;">Morning</div>
+                    <div style="font-family:'Playfair Display',serif;font-size:11px;color:#F8F3EC;line-height:1.4;text-align:center;">"The best mornings start with intention."</div>
+                    <div style="margin-top:8px;width:24px;height:1px;background:#C9A84C;"></div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 540 · 💬 31</div><div class="ov-cap">Your morning routine deserves better. We open at 6AM 🌙</div></div>
+                </div>
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(160deg,#0D0500,#2A1200);">
+                    <div style="font-size:8px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;margin-bottom:5px;">Location</div>
+                    <div style="font-family:'Noto Kufi Arabic',sans-serif;font-size:18px;color:#F8F3EC;">العنبرية</div>
+                    <div style="font-size:8px;color:rgba(255,255,255,0.35);margin-top:2px;">Al-Madinah</div>
+                    <div style="font-size:18px;margin-top:6px;">📍</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 204 · 💬 9</div><div class="ov-cap">Steps from the Haram. Open daily 6AM–12AM 📍</div></div>
+                </div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(135deg,#1C0A00,#3D1E08);opacity:0.55;"><div style="font-size:24px;">🫖</div><div style="font-size:8px;color:#C9A84C;margin-top:4px;">Arabic Tea</div></div></div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(160deg,#2C1504,#1C0A00);opacity:0.55;"><div style="font-size:24px;">🌙</div><div style="font-size:8px;color:#C9A84C;margin-top:4px;">Ramadan</div></div></div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(135deg,#0D0500,#3D1E08);opacity:0.55;"><div style="font-size:24px;">☕</div><div style="font-size:8px;color:#C9A84C;margin-top:4px;">Cold Brew</div></div></div>
+              </div>
+              <div class="ig-bottom"><span>🏠</span><span>🔍</span><span>＋</span><span>🎬</span><span style="border:2px solid #1a1a1a;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:14px;">☕</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="case-right">
+          <div class="panel">
+            <div class="panel-title">Post Captions</div>
+            <div class="post-card">
+              <div class="pc-num">Post 01 — Signature Drink</div>
+              <div class="pc-caption">One sip and you understand why saffron is worth more than gold ☕✨</div>
+              <div class="pc-tags">#ZafaranCafe #MadinahCoffee #قهوة_المدينة</div>
+            </div>
+            <div class="post-card">
+              <div class="pc-num">Post 02 — Lifestyle Quote</div>
+              <div class="pc-caption">Your morning routine deserves better. We open at 6AM 🌙</div>
+              <div class="pc-tags">#MadinahMornings #SpecialtyCoffee #صباح_المدينة</div>
+            </div>
+            <div class="post-card">
+              <div class="pc-num">Post 03 — Location</div>
+              <div class="pc-caption">Steps from the Haram. Open daily 6AM–12AM 📍</div>
+              <div class="pc-tags">#Madinah #AlMadinah #كافيه_المدينة</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Before → After</div>
+            <div class="compare-grid">
+              <div class="compare-col before">
+                <h5>Before</h5>
+                <ul>
+                  <li>No logo</li>
+                  <li>Random posts</li>
+                  <li>No Arabic</li>
+                  <li>White highlights</li>
+                  <li>No bio strategy</li>
+                </ul>
+              </div>
+              <div class="compare-col after">
+                <h5>After</h5>
+                <ul>
+                  <li>Gold lettermark</li>
+                  <li>Consistent palette</li>
+                  <li>Arabic + English</li>
+                  <li>Branded highlights</li>
+                  <li>Clear CTA bio</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CASE 02 — NAKHEEL ══ -->
+    <div class="case-study">
+      <div class="case-header">
+        <div>
+          <div class="case-number">02</div>
+          <h3 class="case-name">Nakheel Grill</h3>
+          <div class="case-handle" style="color:#8BC34A;">@nakheel.grill</div>
+          <p class="case-desc">Traditional wood-fired Mandi & Kabsa. Concept: deep forest green palette, heritage storytelling, family-focused content to drive WhatsApp orders and build community trust.</p>
+        </div>
+        <div class="case-tag" style="color:#8BC34A;border-color:rgba(139,195,74,0.3);">🌴 Traditional Grill</div>
+      </div>
+
+      <div class="mockup-row">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●● 🔋</span></div>
+            <div class="ig-nav"><span style="font-size:16px;color:#1a1a1a;">←</span><span class="ig-username-bar">nakheel.grill</span><div class="ig-nav-icons"><span>＋</span><span>☰</span></div></div>
+            <div class="ig-scroll">
+              <div class="ig-profile">
+                <div class="ig-profile-top">
+                  <div class="avatar-ring" style="background:linear-gradient(45deg,#4CAF50,#1a5c1a);">
+                    <div class="avatar-inner" style="background:linear-gradient(135deg,#0E2A0E,#1A3A1A);">🌴</div>
+                  </div>
+                  <div class="ig-stats">
+                    <div class="ig-stat"><strong>83</strong><span>posts</span></div>
+                    <div class="ig-stat"><strong>5,210</strong><span>followers</span></div>
+                    <div class="ig-stat"><strong>94</strong><span>following</span></div>
+                  </div>
+                </div>
+                <div class="ig-name-text">مطعم النخيل · Nakheel Grill</div>
+                <div class="ig-bio-text">🔥 Wood-fired Mandi & Kabsa<br>🌴 Traditional recipes · Est. 2018<br>📍 Madinah Al-Munawwarah<br><span class="ig-link">📲 Order via WhatsApp</span></div>
+                <div class="ig-btns"><div class="ig-btn prim">Follow</div><div class="ig-btn">Message</div><div class="ig-btn sm">▾</div></div>
+              </div>
+              <div class="highlights-strip">
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#4CAF50,#1a5c1a);"><div class="hl-circle" style="background:linear-gradient(135deg,#0E2A0E,#050F05);">📋</div></div><span>Menu</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#4CAF50,#1a5c1a);"><div class="hl-circle" style="background:linear-gradient(135deg,#1A3A1A,#0E2A0E);">🔥</div></div><span>Live Fire</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#4CAF50,#1a5c1a);"><div class="hl-circle" style="background:linear-gradient(135deg,#050F05,#1A3A1A);">👨‍👩‍👧</div></div><span>Family</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#4CAF50,#1a5c1a);"><div class="hl-circle" style="background:linear-gradient(135deg,#0E2A0E,#1A3A1A);">⭐</div></div><span>Reviews</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#4CAF50,#1a5c1a);"><div class="hl-circle" style="background:linear-gradient(135deg,#050F05,#0E2A0E);">📞</div></div><span>Order</span></div>
+              </div>
+              <div class="grid-tabs"><div class="grid-tab act">⊞</div><div class="grid-tab">▶</div><div class="grid-tab">🏷</div></div>
+              <div class="ig-grid">
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(160deg,#050F05,#0E2A0E);">
+                    <div style="font-size:28px;margin-bottom:5px;">🍖</div>
+                    <div style="color:#8BC34A;font-family:'Playfair Display',serif;font-size:10px;">Mandi Al-Nakheel</div>
+                    <div style="color:rgba(255,255,255,0.35);font-size:8px;font-family:'Noto Kufi Arabic';">مندي النخيل</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 891 · 💬 54</div><div class="ov-cap">Slow-cooked 6 hours. Worth every minute 🔥</div></div>
+                </div>
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(135deg,#050F05,#1A3A1A);">
+                    <div style="font-size:8px;letter-spacing:1px;color:#8BC34A;text-transform:uppercase;margin-bottom:5px;">The Process</div>
+                    <div style="font-size:22px;margin-bottom:5px;">🌿</div>
+                    <div style="font-family:'Playfair Display',serif;font-size:10px;color:#F8F3EC;text-align:center;line-height:1.5;">Wood-fired.<br>Slow-roasted.<br>Handed down.</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 620 · 💬 28</div><div class="ov-cap">No shortcuts. Just real wood fire 🌴</div></div>
+                </div>
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(160deg,#030A03,#0E2A0E);">
+                    <div style="font-size:8px;letter-spacing:1px;color:#8BC34A;text-transform:uppercase;margin-bottom:4px;">Family Deal</div>
+                    <div style="color:#F8F3EC;font-family:'Noto Kufi Arabic',sans-serif;font-size:20px;">للعائلة</div>
+                    <div style="color:rgba(255,255,255,0.4);font-size:8px;margin:3px 0;">Serves 6–8</div>
+                    <div style="color:#8BC34A;font-size:9px;font-weight:600;">WhatsApp 📲</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 1.2K · 💬 87</div><div class="ov-cap">Feeding the whole family? DM to order 🌴</div></div>
+                </div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(135deg,#0E2A0E,#050F05);opacity:0.55;"><div style="font-size:22px;">🍚</div><div style="font-size:8px;color:#8BC34A;margin-top:3px;">Kabsa</div></div></div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(160deg,#1A3A1A,#050F05);opacity:0.55;"><div style="font-size:22px;">🌙</div><div style="font-size:8px;color:#8BC34A;margin-top:3px;">Ramadan</div></div></div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(135deg,#050F05,#1A3A1A);opacity:0.55;"><div style="font-size:22px;">🔥</div><div style="font-size:8px;color:#8BC34A;margin-top:3px;">Live Fire</div></div></div>
+              </div>
+              <div class="ig-bottom"><span>🏠</span><span>🔍</span><span>＋</span><span>🎬</span><span style="border:2px solid #1a1a1a;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:14px;">🌴</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-right">
+          <div class="panel" style="border-color:rgba(139,195,74,0.18);">
+            <div class="panel-title" style="color:#8BC34A;">Post Captions</div>
+            <div class="post-card">
+              <div class="pc-num" style="color:#8BC34A;">Post 01 — Hero Dish</div>
+              <div class="pc-caption">Slow-cooked for 6 hours. Worth every minute 🔥</div>
+              <div class="pc-tags">#MandiMadinah #NakheelGrill #مندي_المدينة</div>
+            </div>
+            <div class="post-card">
+              <div class="pc-num" style="color:#8BC34A;">Post 02 — Behind the Scenes</div>
+              <div class="pc-caption">No shortcuts. No gas. Real wood fire and generations of knowledge 🌴</div>
+              <div class="pc-tags">#TraditionalCooking #WoodFired #مطبخ_أصيل</div>
+            </div>
+            <div class="post-card">
+              <div class="pc-num" style="color:#8BC34A;">Post 03 — Family Offer</div>
+              <div class="pc-caption">Feeding the whole family? DM or WhatsApp to order 🌴</div>
+              <div class="pc-tags">#MadinahFood #FamilyMeals #للعائلة</div>
+            </div>
+          </div>
+          <div class="panel" style="border-color:rgba(139,195,74,0.18);">
+            <div class="panel-title" style="color:#8BC34A;">Before → After</div>
+            <div class="compare-grid">
+              <div class="compare-col before"><h5>Before</h5><ul><li>Clashing colors</li><li>No food styling</li><li>Cheap price posts</li><li>No brand story</li><li>Random icons</li></ul></div>
+              <div class="compare-col after"><h5>After</h5><ul><li>Forest green identity</li><li>Heritage storytelling</li><li>Premium offer posts</li><li>Process content</li><li>Unified highlights</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CASE 03 — BAAB AL NUR ══ -->
+    <div class="case-study">
+      <div class="case-header">
+        <div>
+          <div class="case-number">03</div>
+          <h3 class="case-name">Baab Al Nur Bakery</h3>
+          <div class="case-handle" style="color:#F4A460;">@baab.alnur</div>
+          <p class="case-desc">Arabic bread & Madinah date sweets, open from Fajr. Concept: warm burnt sienna palette, oven-glow aesthetic, gift positioning to capture Hajj & Umrah visitor revenue.</p>
+        </div>
+        <div class="case-tag" style="color:#F4A460;border-color:rgba(244,164,96,0.3);">🍞 Bakery & Sweets</div>
+      </div>
+
+      <div class="mockup-row">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●● 🔋</span></div>
+            <div class="ig-nav"><span style="font-size:16px;color:#1a1a1a;">←</span><span class="ig-username-bar">baab.alnur</span><div class="ig-nav-icons"><span>＋</span><span>☰</span></div></div>
+            <div class="ig-scroll">
+              <div class="ig-profile">
+                <div class="ig-profile-top">
+                  <div class="avatar-ring" style="background:linear-gradient(45deg,#F4A460,#8B4513);">
+                    <div class="avatar-inner" style="background:linear-gradient(135deg,#3D1F08,#2A1008);">🥐</div>
+                  </div>
+                  <div class="ig-stats">
+                    <div class="ig-stat"><strong>61</strong><span>posts</span></div>
+                    <div class="ig-stat"><strong>3,470</strong><span>followers</span></div>
+                    <div class="ig-stat"><strong>77</strong><span>following</span></div>
+                  </div>
+                </div>
+                <div class="ig-name-text">مخبز باب النور · Baab Al Nur</div>
+                <div class="ig-bio-text">🍞 Fresh bread, baked every hour<br>🌴 Date sweets & gift boxes<br>📍 Al-Madinah Al-Munawwarah<br><span class="ig-link">⏰ Open from Fajr · 4AM daily</span></div>
+                <div class="ig-btns"><div class="ig-btn prim">Follow</div><div class="ig-btn">Message</div><div class="ig-btn sm">▾</div></div>
+              </div>
+              <div class="highlights-strip">
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#F4A460,#8B4513);"><div class="hl-circle" style="background:linear-gradient(135deg,#3D1F08,#1A0A00);">🍞</div></div><span>Fresh</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#F4A460,#8B4513);"><div class="hl-circle" style="background:linear-gradient(135deg,#2A1008,#3D1F08);">🌴</div></div><span>Dates</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#F4A460,#8B4513);"><div class="hl-circle" style="background:linear-gradient(135deg,#1A0A00,#2A1008);">🎁</div></div><span>Gifts</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#F4A460,#8B4513);"><div class="hl-circle" style="background:linear-gradient(135deg,#3D1F08,#2A1008);">⏰</div></div><span>Hours</span></div>
+                <div class="hl-item"><div class="hl-ring" style="background:linear-gradient(45deg,#F4A460,#8B4513);"><div class="hl-circle" style="background:linear-gradient(135deg,#1A0A00,#3D1F08);">🕌</div></div><span>Ramadan</span></div>
+              </div>
+              <div class="grid-tabs"><div class="grid-tab act">⊞</div><div class="grid-tab">▶</div><div class="grid-tab">🏷</div></div>
+              <div class="ig-grid">
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(160deg,#1A0A00,#3D1F08);">
+                    <div style="font-size:28px;margin-bottom:5px;">🍞</div>
+                    <div style="color:#F4A460;font-family:'Playfair Display',serif;font-size:10px;">Khubz Madinah</div>
+                    <div style="color:rgba(255,255,255,0.35);font-size:8px;font-family:'Noto Kufi Arabic';">خبز المدينة</div>
+                    <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#F4A460,transparent);"></div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 448 · 💬 23</div><div class="ov-cap">Still warm. Come before it's gone 🫓 Baked hourly.</div></div>
+                </div>
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(135deg,#1A0A00,#3D1F08);">
+                    <div style="font-size:8px;letter-spacing:1px;color:#F4A460;text-transform:uppercase;margin-bottom:4px;">Schedule</div>
+                    <div style="color:#F8F3EC;font-size:9px;line-height:1.8;text-align:center;">🌙 Fajr · 4AM<br>🌅 Pastry · 7AM<br>🌴 Dates · 2PM</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 715 · 💬 41</div><div class="ov-cap">We start before sunrise ☀️ #FreshEveryHour</div></div>
+                </div>
+                <div class="ig-post" onclick="this.classList.toggle('tapped')">
+                  <div class="ig-post-inner" style="background:linear-gradient(160deg,#0D0500,#2A1008);">
+                    <div style="font-family:'Noto Kufi Arabic',sans-serif;font-size:24px;color:#F4A460;margin-bottom:3px;">تمر</div>
+                    <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:6px;">Date Sweets</div>
+                    <div style="font-size:20px;">🌴</div>
+                    <div style="font-size:8px;color:rgba(244,164,96,0.7);margin-top:4px;font-style:italic;">"A gift worth giving"</div>
+                  </div>
+                  <div class="post-overlay"><div class="ov-likes">❤️ 983 · 💬 62</div><div class="ov-cap">Sweetest souvenir from Madinah 🌴 DM to order.</div></div>
+                </div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(135deg,#3D1F08,#1A0A00);opacity:0.55;"><div style="font-size:22px;">🎁</div><div style="font-size:8px;color:#F4A460;margin-top:3px;">Gift Box</div></div></div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(160deg,#2A1008,#1A0A00);opacity:0.55;"><div style="font-size:22px;">🥐</div><div style="font-size:8px;color:#F4A460;margin-top:3px;">Pastries</div></div></div>
+                <div class="ig-post"><div class="ig-post-inner" style="background:linear-gradient(135deg,#1A0A00,#3D1F08);opacity:0.55;"><div style="font-size:22px;">🌙</div><div style="font-size:8px;color:#F4A460;margin-top:3px;">Ramadan</div></div></div>
+              </div>
+              <div class="ig-bottom"><span>🏠</span><span>🔍</span><span>＋</span><span>🎬</span><span style="border:2px solid #1a1a1a;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:14px;">🥐</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-right">
+          <div class="panel" style="border-color:rgba(244,164,96,0.18);">
+            <div class="panel-title" style="color:#F4A460;">Post Captions</div>
+            <div class="post-card">
+              <div class="pc-num" style="color:#F4A460;">Post 01 — Fresh Bread</div>
+              <div class="pc-caption">Still warm. Come get yours before it's gone 🫓 Baked every hour.</div>
+              <div class="pc-tags">#BaabAlNur #MadinahBread #خبز_المدينة</div>
+            </div>
+            <div class="post-card">
+              <div class="pc-num" style="color:#F4A460;">Post 02 — Baking Schedule</div>
+              <div class="pc-caption">We start before sunrise so you don't have to wait ☀️</div>
+              <div class="pc-tags">#FreshEveryHour #EarlyBird #مخبز_المدينة</div>
+            </div>
+            <div class="post-card">
+              <div class="pc-num" style="color:#F4A460;">Post 03 — Date Gift</div>
+              <div class="pc-caption">The sweetest souvenir from Al-Madinah 🌴 Gift boxes available — DM to order.</div>
+              <div class="pc-tags">#MadinahDates #HajjGifts #تمر_المدينة</div>
+            </div>
+          </div>
+          <div class="panel" style="border-color:rgba(244,164,96,0.18);">
+            <div class="panel-title" style="color:#F4A460;">Before → After</div>
+            <div class="compare-grid">
+              <div class="compare-col before"><h5>Before</h5><ul><li>Flat white posts</li><li>Blurry photos</li><li>No gift angle</li><li>Random pricing</li><li>No Arabic brand</li></ul></div>
+              <div class="compare-col after"><h5>After</h5><ul><li>Warm sienna tones</li><li>Oven-glow style</li><li>Gift box revenue</li><li>Schedule builds habit</li><li>Arabic as design</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="section" style="background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-eyebrow">What We Offer</div>
+    <h2 class="section-title">Services available<br><em>for your brand.</em></h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📸</div>
+        <div class="service-name">Profile Redesign</div>
+        <div class="service-desc">Avatar, bio, highlight covers — full first impression overhaul to attract followers from day one.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🗓</div>
+        <div class="service-name">Monthly Content</div>
+        <div class="service-desc">12–20 posts per month, designed and captioned with Arabic & English hashtag strategy.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <div class="service-name">Reels & Stories</div>
+        <div class="service-desc">Short-form video content for Reels, TikTok, and YouTube Shorts to grow your reach fast.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-name">Growth Strategy</div>
+        <div class="service-desc">Monthly reporting, hashtag optimization, and engagement strategy tailored to Madinah market.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-logo">نور ديجيتال</div>
+  <div class="footer-name">NOOR DIGITAL</div>
+  <div class="footer-socials">
+    <a class="footer-social" href="https://instagram.com/noordigitalsa" target="_blank"><span>📸</span> @noordigitalsa</a>
+    <a class="footer-social" href="https://tiktok.com/@noordigitalsa" target="_blank"><span>🎵</span> @noordigitalsa</a>
+    <a class="footer-social" href="https://x.com/noordigitalsa" target="_blank"><span>𝕏</span> @noordigitalsa</a>
+    <a class="footer-social" href="https://youtube.com/@noordigitalsa" target="_blank"><span>▶</span> @noordigitalsa</a>
+  </div>
+  <div class="footer-copy">Portfolio Mockups · Madinah Al-Munawwarah · المملكة العربية السعودية 🇸🇦</div>
+</footer>
+
+</body>
+</html>
